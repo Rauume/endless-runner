@@ -12,23 +12,26 @@ public class GameManager : MonoBehaviour
 
 	public ObjectPool backgroundObjectPool;
 
-	public List<ScriptedEventCollection> scriptedEventCollections = new List<ScriptedEventCollection>();
 
 	private void Start()
 	{
 		if (!eventManager)
 			eventManager = GetComponent<EventsManager>();
 
-		queueNewEvent(scriptedEventCollections[0]);
+		//queueNewEvent(scriptedEventCollections[0]);
+		eventManager.AddRandomEventToQueue();
 	}
 
-	protected void queueNewEvent(ScriptedEventCollection collection)
-	{
-		eventManager.AddScriptedEventCollection(collection);
-	}
+	//protected void queueNewEvent(ScriptedEventCollection collection)
+	//{
+	//	//eventManager.AddScriptedEventCollection(collection);
+	//}
 
 	private void Update()
 	{
-		
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			Debug.Log(eventManager.getFromEventPool(typeof(LaserTopBottom)).name);
+		}
 	}
 }

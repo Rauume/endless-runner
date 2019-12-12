@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public abstract class ScriptedEvent : ScriptableObject
 {
-
 	protected EventsManager eventManager;
 	protected List<GameObject> objects;
+	protected bool eventComplete = false;
 
 	public virtual void Initialise(EventsManager manager, List<GameObject> newPositions)
 	{
@@ -21,13 +21,28 @@ public abstract class ScriptedEvent : ScriptableObject
 				objects.Add(go);
 			}
 		}
-		else
-		{
-			objects.Add(manager.gameObject);
-		}
+		//else
+		//{
+		//	objects.Add(manager.gameObject);
+		//}
+
+		eventComplete = false;
+	}
+
+	public virtual void Terminate()
+	{
+		eventComplete = true;
+		OnStop();
 	}
 
 	public abstract void OnStart();
 
 	public abstract void Update();
+
+	public abstract void OnStop();
+
+	public bool isComplete()
+	{
+		return eventComplete;
+	}
 }

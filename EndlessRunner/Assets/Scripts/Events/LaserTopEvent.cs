@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LaserTopBottomEvent_", menuName = "Events/Laser/TopBottom")]
-public class LaserTopBottom : ScriptedEvent
+[CreateAssetMenu(fileName = "LaserTopEvent", menuName = "Events/Laser/Top")]
+public class LaserTopEvent : ScriptedEvent
 {
 	public override void OnStart()
 	{
 		
-	}	
+	}
 
 	public override void Update()
 	{
-		Debug.Log("test");
+		
 	}
 
 	public override void OnStop()
