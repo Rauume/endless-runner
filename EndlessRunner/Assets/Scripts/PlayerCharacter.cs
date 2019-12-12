@@ -105,4 +105,13 @@ public class PlayerCharacter : MonoBehaviour
 		}
 	}
 
+
+	private void OnControllerColliderHit(ControllerColliderHit hit)
+	{
+		if (hit.gameObject.tag == "Ground")
+		{
+			persistentVelocity.y = 0;
+		}
+	}
+
 }
