@@ -5,10 +5,14 @@ using UnityEngine;
 public class PooledObject : MonoBehaviour
 {
 
-	private void OnBecameInvisible()
+	private void Update()
 	{
-		gameObject.SetActive(false);
+		//when at the end, disable self.
+		if (transform.position.x < GameManager.Instance.m_endPoint.position.x)
+		{
+			gameObject.SetActive(false);
+		}
 	}
 
-	
+
 }

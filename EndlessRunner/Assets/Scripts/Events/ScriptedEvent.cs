@@ -21,10 +21,6 @@ public abstract class ScriptedEvent : ScriptableObject
 				objects.Add(go);
 			}
 		}
-		//else
-		//{
-		//	objects.Add(manager.gameObject);
-		//}
 
 		eventComplete = false;
 	}

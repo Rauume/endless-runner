@@ -10,15 +10,12 @@ public class ObjectPool : MonoBehaviour
 	public GameObject objectToPool;
 	public int amountToPool;
 
+	public bool shouldExpand = true;
 
 	private void Awake()
 	{
 		pool = this;
-	}
 
-
-	private void Start()
-	{
 		pooledObjects = new List<GameObject>();
 		for (int i = 0; i < amountToPool; i++)
 		{
@@ -39,7 +36,18 @@ public class ObjectPool : MonoBehaviour
 			}
 		}
 
-		return null;
+		if (shouldExpand)
+		{
+			GameObject obj = (GameObject)Instantiate(objectToPool);
+			obj.SetActive(false);
+			pooledObjects.Add(obj);
+			return obj;
+		}
+		else
+		{
+			return null;
+		}
+
 	}
 
 

@@ -8,13 +8,13 @@ public class ScrollObject
 {
 	public string comment;
 	public GameObject m_object;
-	public float m_scrollSpeed;
+	public float m_scrollMultiplier;
 
 	//For instantiating via script.
 	public ScrollObject(GameObject obj, float speed)
 	{
 		m_object = obj;
-		m_scrollSpeed = speed;
+		m_scrollMultiplier = speed;
 	}
 }
 
@@ -89,7 +89,7 @@ public class LoopBackground : MonoBehaviour
 		foreach (ScrollObject scrollObject in levels)
 		{
 			//Scroll by the desired amount each second
-			scrollObject.m_object.transform.Translate((Vector3.right * -scrollObject.m_scrollSpeed) * Time.deltaTime);
+			scrollObject.m_object.transform.Translate((Vector3.right * -GameManager.Instance.m_globalScrollSpeed *scrollObject.m_scrollMultiplier) * Time.deltaTime);
 		}
 	}
 
