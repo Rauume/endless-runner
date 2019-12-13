@@ -58,10 +58,10 @@ public class PlayerCharacter : MonoBehaviour
 	{
 		Vector3 outcomeVelocity = (persistentVelocity);
 
-		//keep the animation from deviating from the running line
-		outcomeVelocity.z = 0; 
-		//constant fowards velocity
-		outcomeVelocity.x = forwardVelocity; 
+		////keep the animation from deviating from the running line
+		//outcomeVelocity.z = 0; 
+		////constant fowards velocity
+		//outcomeVelocity.x = 0; 
 
 		//apply the velocity to the character.
 		m_characterController.Move(outcomeVelocity * Time.deltaTime); 
