@@ -11,7 +11,7 @@ public class Player2D : MonoBehaviour
 	public LayerMask m_floorMask;
 
 	[Header("Jump Variables")]
-	public float m_jumpHeight = 5f;
+	public float m_jumpHeight = 4f;
 	public float m_minJumpHeight = 1f;
 	protected bool jumpKeyHeld = false;
 

@@ -10,7 +10,7 @@ public class Obstacle : MonoBehaviour
 		if (collision.gameObject.name == "Player2D")
 		{
 			Debug.Log("Player hit me");
-			GameManager.Instance.EndRun();
+			GameManager.Instance.EndGame();
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnViaPrefab : MonoBehaviour
+public class PlaceGameElements : MonoBehaviour
 {
 	public List<GameplayPrefab> gamePrefabs = new List<GameplayPrefab>();
 
