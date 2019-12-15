@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Pixelplacement;
 
 public class UIManager : MonoBehaviour
 {
-	public GameObject StartGamePanel;
-	public GameObject GameplayPanel;
-	public GameObject EndGamePanel;
+	public DisplayObject StartGamePanel;
+	public DisplayObject GameplayPanel;
+	public DisplayObject EndGamePanel;
 
 	[Header("UI Elements")]
 	public TextMeshProUGUI m_distanceText;
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour
 
 	private void Awake()
 	{
+		StartGamePanel.SetActive(true);
 		ShowMainMenu();
 	}
 
@@ -25,23 +27,18 @@ public class UIManager : MonoBehaviour
 
 	public void ShowMainMenu()
 	{
-		StartGamePanel.SetActive(true);
-		GameplayPanel.SetActive(false);
-		EndGamePanel.SetActive(false);
+		StartGamePanel.Solo();
+
 	}
 
 	public void ShowGameScreen()
 	{
-		StartGamePanel.SetActive(false);
-		GameplayPanel.SetActive(true);
-		EndGamePanel.SetActive(false);
+		GameplayPanel.Solo();
 	}
 
 	public void ShowDeathScreen()
 	{
-		StartGamePanel.SetActive(false);
-		GameplayPanel.SetActive(false);
-		EndGamePanel.SetActive(true);
+		EndGamePanel.Solo();
 	}
 
 	public void UpdateGameUI()
@@ -49,9 +46,8 @@ public class UIManager : MonoBehaviour
 		if (GameManager.Instance.isGameRunning())
 		{
 			m_distanceText.text = "test";
-			m_coinCountText.text = GameManager.Instance.getCoinsCollected().ToString();
+			m_coinCountText.text = GameManager.Instance.GetCoinsCollected().ToString();
+			m_distanceText.text = Mathf.RoundToInt(GameManager.Instance.GetCurrentDistance()).ToString() + "m";
 		}
 	}
-
-
 }

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
 	public float m_globalScrollSpeed = 5.4f;
 	public const float m_beginningScrollSpeed = 5.4f;
+	protected float m_distanceRan = 0;
 	public const int m_playAreaHeight = 10;
 
 	[Header("Start and end spawning positions")]
@@ -52,13 +53,21 @@ public class GameManager : MonoBehaviour
 		gameElementSpawner = GetComponent<PlaceGameElements>();
 	}
 
+	private void Update()
+	{
+		if (isGameRunning())
+		{
+			m_distanceRan += m_globalScrollSpeed * Time.deltaTime;
+		}
+	}
+
 	//Coin counter.
 	public void AddCoin()
 	{
 		coinsCollected++;
 	}
 
-	public int getCoinsCollected()
+	public int GetCoinsCollected()
 	{
 		return coinsCollected;
 	}
@@ -93,12 +102,18 @@ public class GameManager : MonoBehaviour
 	{
 		gameElementSpawner.ReturnGameElementsToPool();
 		coinsCollected = 0;
+		m_distanceRan = 0;
 
 	}
 
 	public bool isGameRunning()
 	{
 		return m_isGameRunning;
+	}
+
+	public float GetCurrentDistance()
+	{
+		return m_distanceRan;
 	}
 
 	
