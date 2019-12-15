@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
 		m_coinsCollected = 0;
 		m_distanceRan = 0;
 
+		m_playerController.ResetPlayer();
 	}
 
 	public void ToggleGravityDirection()

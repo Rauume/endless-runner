@@ -354,13 +354,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de25c5b7619c78c498fa921447b6190c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_groundDetection: {fileID: 399789977}
   m_floorMask:
     serializedVersion: 2
     m_Bits: 256
   m_jumpHeight: 5
   m_coyoteTime: 0.2
-  m_timeInAir: 0
   m_gravityDown: 1
   m_playerAlive: 1
 --- !u!1 &234113575
@@ -644,17 +642,13 @@ MonoBehaviour:
   - {fileID: 6045785260839156097, guid: 5c4b0d11783456b44b86cb767bc4b4fe, type: 3}
   - {fileID: 3283209459688590385, guid: 5df568d96f060514eaafeb5977bfdcfc, type: 3}
   - {fileID: 77162160719856404, guid: f7934dfac62fd174bb7c9ecb166deb29, type: 3}
+  - {fileID: 77162160719856404, guid: 4aeb409328717ec43af396c6ef595cee, type: 3}
+  - {fileID: 77162160719856404, guid: ff09f2f6b52937a4e8590954e56c5ced, type: 3}
   objectPools:
   - {fileID: 1889620410}
   - {fileID: 1060188224}
   - {fileID: 1593780130}
   - {fileID: 2146844165}
---- !u!4 &399789977 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 215660311655334432, guid: 32aeb6605d5050641a4903785ab99f7f,
-    type: 3}
-  m_PrefabInstance: {fileID: 215660311909862841}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &415070646
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,7 +930,7 @@ GameObject:
   - component: {fileID: 807384168}
   - component: {fileID: 807384170}
   - component: {fileID: 807384169}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: High Score Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1380,7 +1374,7 @@ GameObject:
   - component: {fileID: 1276807723}
   - component: {fileID: 1276807725}
   - component: {fileID: 1276807724}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Tap to continue...
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1640,7 +1634,7 @@ GameObject:
   - component: {fileID: 1554364313}
   - component: {fileID: 1554364315}
   - component: {fileID: 1554364314}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Game end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1797,7 +1791,7 @@ GameObject:
   - component: {fileID: 1555127779}
   - component: {fileID: 1555127781}
   - component: {fileID: 1555127780}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Current Score Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

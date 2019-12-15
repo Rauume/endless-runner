@@ -33,8 +33,15 @@ public class Player2D : MonoBehaviour
 		m_rigidbody = GetComponent<Rigidbody2D>();
 		m_playerCollider = GetComponent<CapsuleCollider2D>();
 
+	}
+
+	private void Start()
+	{
+		m_animator.SetBool("IsDead", true);
+		m_animator.Play("Idle");
+
 		//todo: only set this on actual game start.
-		m_playerAlive = true;
+		m_playerAlive = false;
 		m_initialPlayerPosition = transform.position;
 	}
 
@@ -161,6 +168,7 @@ public class Player2D : MonoBehaviour
 
 			m_playerAlive = false;
 			m_animator.SetBool("IsDead", true);
+			m_rigidbody.velocity = Vector2.zero;
 		}
 	}
 
@@ -169,6 +177,11 @@ public class Player2D : MonoBehaviour
 		m_playerAlive = true;
 		m_animator.Play("Running");
 		m_animator.SetBool("IsDead", false);
+	}
+
+	public void ResetPlayer()
+	{
+		m_animator.Play("Idle");
 		transform.position = m_initialPlayerPosition;
 	}
 }
