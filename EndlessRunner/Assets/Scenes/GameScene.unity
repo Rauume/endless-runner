@@ -373,7 +373,6 @@ GameObject:
   m_Component:
   - component: {fileID: 234113577}
   - component: {fileID: 234113576}
-  - component: {fileID: 234113578}
   - component: {fileID: 234113580}
   - component: {fileID: 234113579}
   m_Layer: 5
@@ -411,43 +410,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &234113578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234113575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f90f1e98a7689d45b9dd42924186318, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_tween:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rectTransform: {fileID: 234113577}
 --- !u!114 &234113579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,6 +586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UIManager: {fileID: 243511101}
   m_player: {fileID: 160748001}
+  playerController: {fileID: 0}
   m_globalScrollSpeed: 5.4
   m_startPoint: {fileID: 561569283}
   m_endPoint: {fileID: 10698779}
@@ -677,12 +640,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objects:
+  - {fileID: 3283209459688590385, guid: 5df568d96f060514eaafeb5977bfdcfc, type: 3}
   - {fileID: 6045785260839156097, guid: 26dd2f72993b39249bd5052d26bb67a2, type: 3}
   - {fileID: 6045785260839156097, guid: 5c4b0d11783456b44b86cb767bc4b4fe, type: 3}
   objectPools:
+  - {fileID: 1889620410}
+  - {fileID: 1060188224}
   - {fileID: 1593780130}
   - {fileID: 2146844165}
-  - {fileID: 1060188224}
 --- !u!4 &399789977 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 215660311655334432, guid: 32aeb6605d5050641a4903785ab99f7f,
@@ -1229,9 +1194,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledObjects: []
-  objectToPool: {fileID: 8822424673107018019, guid: d204dee386e935b4bb7de50d71669a0a,
+  objectToPool: {fileID: 7071421147774839160, guid: d5dd745b828f7f0469b46454ddbe27fe,
     type: 3}
-  amountToPool: 0
+  amountToPool: 10
   shouldExpand: 1
 --- !u!1 &1311913135
 GameObject:
@@ -1663,7 +1628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledObjects: []
-  objectToPool: {fileID: 2651740075567561439, guid: 698f53d517a6a09479937592d17c4ba1,
+  objectToPool: {fileID: 8752635195197349734, guid: 698f53d517a6a09479937592d17c4ba1,
     type: 3}
   amountToPool: 10
   shouldExpand: 1
@@ -1865,6 +1830,7 @@ Transform:
   - {fileID: 1593780131}
   - {fileID: 2146844164}
   - {fileID: 1060188223}
+  - {fileID: 1889620409}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2198,6 +2164,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1889620408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1889620409}
+  - component: {fileID: 1889620410}
+  m_Layer: 0
+  m_Name: Gravity Wall Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1889620409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889620408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1694432058}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889620410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889620408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bc5cc4ecd9791449e7cf1b5c30c5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 4687921765739119314, guid: 5dec147c21646bf4e9a7fd319e2a06fd,
+    type: 3}
+  amountToPool: 2
+  shouldExpand: 1
 --- !u!1 &1943919412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,7 +2689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledObjects: []
-  objectToPool: {fileID: 371341392066602679, guid: 0a73d29f5dec41a49861000075c0fb49,
+  objectToPool: {fileID: 3384977379464551317, guid: 85af39668b87fa840aafff29756915bc,
     type: 3}
   amountToPool: 10
   shouldExpand: 1
@@ -2690,6 +2704,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player2D
+      objectReference: {fileID: 0}
+    - target: {fileID: 215660311751777368, guid: 32aeb6605d5050641a4903785ab99f7f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 215660311655334432, guid: 32aeb6605d5050641a4903785ab99f7f,
         type: 3}

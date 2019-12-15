@@ -11,10 +11,10 @@ public class ProbabilityUtils {
     public class CumulativeProbabilityObject
     {
 		//Pass a starting probability, and the probability increase for each time it isn't picked.
-        public CumulativeProbabilityObject(int baseProbability, int deltaChanceIncrease)
+        public CumulativeProbabilityObject(int baseProbability, int deltaProbabilityIncrease)
         {
             this.baseProbability = currentProb = baseProbability;
-            delta = deltaChanceIncrease;
+            delta = deltaProbabilityIncrease;
         }
 
         public int baseProbability;
@@ -63,7 +63,7 @@ public class ProbabilityUtils {
                     currentProbs[i] = 1;
             }
             int index = GetRouletteIndex(currentProbs);
-            for (int i=0; i<currentProbs.Length; i++)
+            for (int i = 0; i < currentProbs.Length; i++)
             {
                 if (index == i)
                     currentProbs[i] = baseProb;

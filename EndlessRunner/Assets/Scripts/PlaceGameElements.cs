@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PlaceGameElements : MonoBehaviour
 {
-	//public List<GameplayPrefab> gamePrefabs = new List<GameplayPrefab>();
 	public GameObject[] objects;
+
+	
 
 	[Header("Object Pools")]
 	public List<ObjectPool> objectPools = new List<ObjectPool>();
 
 	public void BeginSpawningElements()
 	{
-		InvokeRepeating("SpawnRandomGameSegment", 0, 5);
+		InvokeRepeating("SpawnRandomGameSegment", 0,6);
 	}
 
 	public void SpawnRandomGameSegment()
@@ -24,9 +25,27 @@ public class PlaceGameElements : MonoBehaviour
 
 		foreach (Transform t in objectToSpawn.transform)
 		{
-			GameObject laser = GetPool(t.tag).GetPooledObject();
-			laser.transform.position = t.position + GameManager.Instance.m_startPoint.position;
-			laser.SetActive(true);
+			GameObject placedObject = GetPool(t.tag).GetPooledObject();
+			placedObject.transform.position = t.position + (Vector3.right * GameManager.Instance.m_startPoint.position.x);
+			placedObject.transform.localScale = Vector3.one; //return scale to normal before placing.
+
+			//if gravity is down
+			//todo: this can be neater, shouldn't need an if statement for gravity direction.
+			if (!GameManager.Instance.IsGravityDown())
+			{
+				//Invert its rotation.
+				placedObject.transform.localEulerAngles += Vector3.right * GameManager.Instance.m_startPoint.localEulerAngles.x;
+
+				Vector3 newPosition = placedObject.transform.position;
+				newPosition.y *= -1; //Invert the y position
+				newPosition.y += GameManager.Instance.m_startPoint.position.y; //Add the start position.
+
+				placedObject.transform.localScale += Vector3.up * -2;
+
+				placedObject.transform.position = newPosition;
+			}
+
+			placedObject.SetActive(true);
 		}
 	}
 

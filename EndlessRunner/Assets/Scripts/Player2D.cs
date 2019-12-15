@@ -85,7 +85,7 @@ public class Player2D : MonoBehaviour
 		//(Results in variable jump, the longer its held, the higher the player can jump)
 		if (m_animator.GetBool("Jumping"))
 		{
-			if (!jumpKeyHeld && Vector2.Dot(m_rigidbody.velocity, Vector2.up) > 0)
+			if (!jumpKeyHeld && Vector2.Dot(m_rigidbody.velocity, (Vector2)transform.up) > 0)
 			{
 				m_rigidbody.AddForce((Physics2D.gravity * m_rigidbody.gravityScale) * m_rigidbody.mass);
 			}
@@ -127,7 +127,7 @@ public class Player2D : MonoBehaviour
 		{
 			m_animator.SetBool("Jumping", true);
 			//add a pulse of force for the jump.
-			m_rigidbody.AddForce(Vector2.up * CalculateJumpForce(-Physics2D.gravity.y * m_rigidbody.gravityScale, m_jumpHeight) * m_rigidbody.mass, ForceMode2D.Impulse);
+			m_rigidbody.AddForce((Vector2)transform.up * CalculateJumpForce(-Physics2D.gravity.y * m_rigidbody.gravityScale, m_jumpHeight * m_rigidbody.gravityScale) * m_rigidbody.mass, ForceMode2D.Impulse);
 		}
 	}
 

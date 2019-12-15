@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
 	[Header("Game Variables")]
 	public GameObject m_player;
-	protected Player2D playerController;
+	[HideInInspector] public Player2D playerController;
 
 	//protected EventsManager m_eventManager;
 	protected bool m_isGameRunning = false;
@@ -61,17 +61,6 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	//Coin counter.
-	public void AddCoin()
-	{
-		coinsCollected++;
-	}
-
-	public int GetCoinsCollected()
-	{
-		return coinsCollected;
-	}
-
 	//Start the run
 	public void StartGame()
 	{
@@ -106,6 +95,29 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	public void ToggleGravityDirection()
+	{
+		playerController.Input_SwitchDirections();
+
+		if (IsGravityDown()) 
+		{ //If switching to upside down
+			m_startPoint.position += Vector3.up * -m_playAreaHeight;
+			m_startPoint.eulerAngles += Vector3.right * 180;
+		}
+		else
+		{ //if switching back to normal.
+			m_startPoint.position += Vector3.up * m_playAreaHeight;
+			m_startPoint.eulerAngles += Vector3.right * -180;
+
+		}
+	}
+	
+	public bool IsGravityDown()
+	{
+		return playerController.m_gravityDown;
+	}
+
+	//Simple getters and setters.
 	public bool isGameRunning()
 	{
 		return m_isGameRunning;
@@ -116,6 +128,15 @@ public class GameManager : MonoBehaviour
 		return m_distanceRan;
 	}
 
-	
+	//Coin counter.
+	public void AddCoin()
+	{
+		coinsCollected++;
+	}
+
+	public int GetCoinsCollected()
+	{
+		return coinsCollected;
+	}
 
 }

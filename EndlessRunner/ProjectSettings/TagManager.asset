@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - Laser
   - Coin
+  - Gravity Wall
   layers:
   - Default
   - TransparentFX
