@@ -13,7 +13,6 @@ public class Player2D : MonoBehaviour
 	[Header("Jump Variables")]
 	public float m_jumpHeight = 4f;
 	public float m_minJumpHeight = 1f;
-	protected bool jumpKeyHeld = false;
 
 
 	[Tooltip("Time the player can still jump after starting to fall")]
@@ -23,6 +22,9 @@ public class Player2D : MonoBehaviour
 	public bool m_gravityIsDown = true;
 	public bool m_playerRunning = true;
 
+	//protected variables;
+	protected bool jumpKeyHeld = false;
+	//protected bool isOnGround = true;
 
 
 	// Start is called before the first frame update
@@ -58,6 +60,21 @@ public class Player2D : MonoBehaviour
 		{
 			jumpKeyHeld = false;
 		}
+
+		//touch controls.
+		if(Input.touchCount > 0)
+		{
+			if (Input.GetTouch(0).phase == TouchPhase.Began)
+			{
+				jumpKeyHeld = true;
+				Input_Jump();
+			}
+			else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+			{
+				jumpKeyHeld = false;
+
+			}
+		}
 	}
 
 	private void FixedUpdate()
@@ -71,6 +88,16 @@ public class Player2D : MonoBehaviour
 				m_rigidbody.AddForce((Physics2D.gravity * m_rigidbody.gravityScale) * m_rigidbody.mass);
 			}
 		}
+	}
+
+	public void OnLanding()
+	{
+
+	}
+
+	public void OnJump()
+	{
+
 	}
 
 	public bool IsGrounded()
