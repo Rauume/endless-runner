@@ -4,42 +4,39 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-	public static ObjectPool pool;
+	public List<GameObject> m_pooledObjects;
+	public GameObject m_objectToPool;
+	public int m_amountToPool;
 
-	public List<GameObject> pooledObjects;
-	public GameObject objectToPool;
-	public int amountToPool;
-
-	public bool shouldExpand = true;
+	public bool m_shouldExpand = true;
 
 	private void Awake()
 	{
-		pool = this;
 
-		pooledObjects = new List<GameObject>();
-		for (int i = 0; i < amountToPool; i++)
+		m_pooledObjects = new List<GameObject>();
+		for (int i = 0; i < m_amountToPool; i++)
 		{
-			GameObject obj = (GameObject)Instantiate(objectToPool, this.transform);
+			GameObject obj = (GameObject)Instantiate(m_objectToPool, this.transform);
 			obj.SetActive(false);
-			pooledObjects.Add(obj);
+			m_pooledObjects.Add(obj);
 		}
 	}
 
 	public GameObject GetPooledObject()
 	{
-		for (int i = 0; i < pooledObjects.Count; i++)
+		for (int i = 0; i < m_pooledObjects.Count; i++)
 		{
-			if (!pooledObjects[i].activeInHierarchy)
+			if (!m_pooledObjects[i].activeInHierarchy)
 			{
-				return pooledObjects[i];
+				return m_pooledObjects[i];
 			}
 		}
 
-		if (shouldExpand)
+		if (m_shouldExpand)
 		{
-			GameObject obj = (GameObject)Instantiate(objectToPool);
+			GameObject obj = (GameObject)Instantiate(m_objectToPool);
 			obj.SetActive(false);
-			pooledObjects.Add(obj);
+			m_pooledObjects.Add(obj);
 			return obj;
 		}
 		else

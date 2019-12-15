@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlaceGameElements : MonoBehaviour
 {
-	public GameObject[] objects;
+	//the objects you are spawning.
+	public GameObject[] m_spawnObjects;
 
 	
 
@@ -18,7 +19,7 @@ public class PlaceGameElements : MonoBehaviour
 
 	public void SpawnRandomGameSegment()
 	{
-		ProbabilityUtils.Picker picker = new ProbabilityUtils.Picker(0, 5, objects);
+		ProbabilityUtils.Picker picker = new ProbabilityUtils.Picker(0, 5, m_spawnObjects);
 
 
 		GameObject objectToSpawn = picker.GetNext() as GameObject;
@@ -58,7 +59,7 @@ public class PlaceGameElements : MonoBehaviour
 	{
 		foreach(ObjectPool pool in objectPools)
 		{
-			foreach (GameObject obj in pool.pooledObjects)
+			foreach (GameObject obj in pool.m_pooledObjects)
 			{
 				obj.SetActive(false);
 			}
@@ -69,7 +70,7 @@ public class PlaceGameElements : MonoBehaviour
 	{
 		foreach (ObjectPool pool in objectPools)
 		{
-			if (pool.objectToPool.tag == tag)
+			if (pool.m_objectToPool.tag == tag)
 				return pool;
 		}
 

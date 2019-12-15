@@ -6,9 +6,9 @@ using Pixelplacement;
 
 public class UIManager : MonoBehaviour
 {
-	public DisplayObject StartGamePanel;
-	public DisplayObject GameplayPanel;
-	public DisplayObject EndGamePanel;
+	public DisplayObject m_startGamePanel;
+	public DisplayObject m_gameplayPanel;
+	public DisplayObject m_endGamePanel;
 
 	[Header("UI Elements")]
 	public TextMeshProUGUI m_distanceText;
@@ -16,38 +16,38 @@ public class UIManager : MonoBehaviour
 
 	private void Awake()
 	{
-		StartGamePanel.SetActive(true);
+		m_startGamePanel.SetActive(true);
 		ShowMainMenu();
 	}
 
-	private void FixedUpdate()
+	private void Update()
 	{
 		UpdateGameUI();
 	}
 
 	public void ShowMainMenu()
 	{
-		StartGamePanel.Solo();
+		m_startGamePanel.Solo();
 
 	}
 
 	public void ShowGameScreen()
 	{
-		GameplayPanel.Solo();
+		m_gameplayPanel.Solo();
 	}
 
 	public void ShowDeathScreen()
 	{
-		EndGamePanel.Solo();
+		m_endGamePanel.Solo();
 	}
 
 	public void UpdateGameUI()
 	{
 		if (GameManager.Instance.isGameRunning())
 		{
-			m_distanceText.text = "test";
 			m_coinCountText.text = GameManager.Instance.GetCoinsCollected().ToString();
 			m_distanceText.text = Mathf.RoundToInt(GameManager.Instance.GetCurrentDistance()).ToString() + "m";
 		}
 	}
+
 }

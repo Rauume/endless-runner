@@ -13,11 +13,10 @@ public class GameManager : MonoBehaviour
 
 	[Header("Game Variables")]
 	public GameObject m_player;
-	[HideInInspector] public Player2D playerController;
+	[HideInInspector] public Player2D m_playerController;
 
-	//protected EventsManager m_eventManager;
 	protected bool m_isGameRunning = false;
-	protected int coinsCollected = 0;
+	protected int m_coinsCollected = 0;
 
 	public float m_globalScrollSpeed = 5.4f;
 	public const float m_beginningScrollSpeed = 5.4f;
@@ -30,7 +29,7 @@ public class GameManager : MonoBehaviour
 	public Transform m_endPoint;
 
 	//Protected Variables;
-	protected PlaceGameElements gameElementSpawner;
+	protected PlaceGameElements m_gameElementSpawner;
 
 
 
@@ -50,8 +49,8 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		playerController = m_player.GetComponent<Player2D>();
-		gameElementSpawner = GetComponent<PlaceGameElements>();
+		m_playerController = m_player.GetComponent<Player2D>();
+		m_gameElementSpawner = GetComponent<PlaceGameElements>();
 	}
 
 	private void Update()
@@ -71,18 +70,18 @@ public class GameManager : MonoBehaviour
 		m_globalScrollSpeed = m_beginningScrollSpeed;
 
 		m_isGameRunning = true;
-		playerController.BeginRunning();
-		gameElementSpawner.BeginSpawningElements();
+		m_playerController.BeginRunning();
+		m_gameElementSpawner.BeginSpawningElements();
 	}
 
 	//Stop the run
 	public void EndGame()
 	{
 		m_globalScrollSpeed = 0;
-		playerController.KillPlayer();
+		m_playerController.KillPlayer();
 		m_isGameRunning = false;
 
-		gameElementSpawner.StopSpawningElements();
+		m_gameElementSpawner.StopSpawningElements();
 
 		m_UIManager.ShowDeathScreen();
 
@@ -92,32 +91,42 @@ public class GameManager : MonoBehaviour
 	//reset without starting the run.
 	public void ResetGame()
 	{
-		gameElementSpawner.ReturnGameElementsToPool();
-		coinsCollected = 0;
+		m_gameElementSpawner.ReturnGameElementsToPool();
+		m_coinsCollected = 0;
 		m_distanceRan = 0;
 
 	}
 
 	public void ToggleGravityDirection()
 	{
-		playerController.Input_SwitchDirections();
+		Vector3 newStartPointPosition = m_startPoint.position;
 
 		if (IsGravityDown()) 
 		{ //If switching to upside down
-			m_startPoint.position += Vector3.up * -m_playAreaHeight;
+			newStartPointPosition += Vector3.up * m_playAreaHeight;
+
 			m_startPoint.eulerAngles += Vector3.right * 180;
 		}
 		else
 		{ //if switching back to normal.
-			m_startPoint.position += Vector3.up * m_playAreaHeight;
+			newStartPointPosition.y = 0;
+
+
 			m_startPoint.eulerAngles += Vector3.right * -180;
 
 		}
+
+		m_playerController.Input_SwitchDirections();
+
+
+		//This is fixing a logic error causing the start position being placed above the play area.
+		newStartPointPosition.y = Mathf.Clamp(newStartPointPosition.y, 0, GameManager.m_playAreaHeight);
+		m_startPoint.position = newStartPointPosition;
 	}
 	
 	public bool IsGravityDown()
 	{
-		return playerController.m_gravityDown;
+		return m_playerController.m_gravityDown;
 	}
 
 	//Simple getters and setters.
@@ -126,6 +135,8 @@ public class GameManager : MonoBehaviour
 		return m_isGameRunning;
 	}
 
+	//this is a float and not an int due to a really weird bug
+	//It wouldn't increment during run, but worked fine during debugging w/ visual studio
 	public float GetCurrentDistance()
 	{
 		return m_distanceRan;
@@ -134,12 +145,12 @@ public class GameManager : MonoBehaviour
 	//Coin counter.
 	public void AddCoin()
 	{
-		coinsCollected++;
+		m_coinsCollected++;
 	}
 
 	public int GetCoinsCollected()
 	{
-		return coinsCollected;
+		return m_coinsCollected;
 	}
 
 }

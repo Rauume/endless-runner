@@ -6,13 +6,11 @@ using Pixelplacement;
 public class Collectable : MonoBehaviour
 {
 	[Header("Collection Settings")]
-	[Tooltip("How close to the player before disappearing")]
-	public float m_collectionTolerance = 0.1f;
 	[Tooltip("Time after collection before moving to the player")]
-	public float m_delayOnCollection = 0.8f;
+	public float m_delayAfterCollection = 1f;
 
 	[Tooltip("Animation curve, how it scopes back to the player")]
-	public AnimationCurve tweenStyle = Tween.EaseOut;
+	public AnimationCurve m_tweenStyle = Tween.EaseOut;
 	
 	protected float m_timeSinceInteraction = 0;
 	protected bool m_collected = false;
@@ -30,7 +28,7 @@ public class Collectable : MonoBehaviour
 		if (collision.gameObject.name == "Player2D")
 		{
 			m_collected = true;
-			Tween.LocalPosition(transform, collision.transform.position, 0.5f, m_delayOnCollection, tweenStyle);
+			Tween.LocalPosition(transform, new Vector3(0, GameManager.m_playAreaHeight + 2, 0), 0.5f, 0, m_tweenStyle);
 			m_collector = collision.transform;
 		}
 	}
@@ -46,12 +44,10 @@ public class Collectable : MonoBehaviour
 			m_timeSinceInteraction += Time.deltaTime;
 
 		//if collected and close enough to the player, disable.
-		if (m_collected && transform.position.x >= m_collector.position.x - m_collectionTolerance && m_timeSinceInteraction > m_delayOnCollection)
+		if (m_timeSinceInteraction > m_delayAfterCollection)
 		{
 			GameManager.Instance.AddCoin();
 			gameObject.SetActive(false);
 		}
 	}
-
-
 }

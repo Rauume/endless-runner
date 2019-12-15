@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Player2D : MonoBehaviour
 {
-	protected Animator m_animator;
-	protected Rigidbody2D m_rigidbody;
+
 	public Transform m_groundDetection;
 
 	public LayerMask m_floorMask;
@@ -22,10 +21,10 @@ public class Player2D : MonoBehaviour
 	[HideInInspector] public bool m_playerAlive = true;
 
 	//protected variables;
-	protected bool jumpKeyHeld = false;
-	//protected bool isOnGround = true;
-
-	//animator state hashes.
+	protected bool m_jumpKeyHeld = false;
+	protected Animator m_animator;
+	protected Rigidbody2D m_rigidbody;
+	protected Vector3 m_initialPlayerPosition;
 
 
 
@@ -37,6 +36,7 @@ public class Player2D : MonoBehaviour
 
 		//todo: only set this on actual game start.
 		m_playerAlive = true;
+		m_initialPlayerPosition = transform.position;
 	}
 
 	// Update is called once per frame
@@ -56,13 +56,13 @@ public class Player2D : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			jumpKeyHeld = true;
+			m_jumpKeyHeld = true;
 			Input_Jump();
 			//Input_SwitchDirections();
 		}
 		else if (Input.GetKeyUp(KeyCode.Space))
 		{
-			jumpKeyHeld = false;
+			m_jumpKeyHeld = false;
 		}
 
 		//touch controls.
@@ -70,12 +70,12 @@ public class Player2D : MonoBehaviour
 		{
 			if (Input.GetTouch(0).phase == TouchPhase.Began)
 			{
-				jumpKeyHeld = true;
+				m_jumpKeyHeld = true;
 				Input_Jump();
 			}
 			else if (Input.GetTouch(0).phase == TouchPhase.Ended)
 			{
-				jumpKeyHeld = false;
+				m_jumpKeyHeld = false;
 
 			}
 		}
@@ -87,7 +87,7 @@ public class Player2D : MonoBehaviour
 		//(Results in variable jump, the longer its held, the higher the player can jump)
 		if (m_animator.GetBool("Jumping"))
 		{
-			if (!jumpKeyHeld && Vector2.Dot(m_rigidbody.velocity, (Vector2)transform.up) > 0)
+			if (!m_jumpKeyHeld && Vector2.Dot(m_rigidbody.velocity, (Vector2)transform.up) > 0)
 			{
 				m_rigidbody.AddForce((Physics2D.gravity * m_rigidbody.gravityScale) * m_rigidbody.mass);
 			}
@@ -116,11 +116,10 @@ public class Player2D : MonoBehaviour
 				//if within distance of the ground
 				return (Vector2.Distance(groundHit.point, (Vector2)m_groundDetection.position) < 0.1);
 			}
-			else //todo: cleanup.
-				return false;
 		}
-		else
-			return false;
+
+
+		return false;
 	}
 
 	public void Input_Jump()
@@ -181,5 +180,6 @@ public class Player2D : MonoBehaviour
 		m_playerAlive = true;
 		m_animator.Play("Running");
 		m_animator.SetBool("IsDead", false);
+		transform.position = m_initialPlayerPosition;
 	}
 }
