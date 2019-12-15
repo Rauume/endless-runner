@@ -5,9 +5,7 @@ using UnityEngine;
 public class PlaceGameElements : MonoBehaviour
 {
 	//the objects you are spawning.
-	public GameObject[] m_spawnObjects;
-
-	
+	public GameObject[] m_spawnObjects;	
 
 	[Header("Object Pools")]
 	public List<ObjectPool> objectPools = new List<ObjectPool>();

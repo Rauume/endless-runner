@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PooledObject : MonoBehaviour, IPoolObject
+public class PooledObject : MonoBehaviour
 {
-	public void returnToPool()
-	{
-		gameObject.SetActive(false);
-	}
-
 	private void Update()
 	{
 		//when at the end, disable self.

@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class Player2D : MonoBehaviour
 {
-
-	public Transform m_groundDetection;
-
+	[Tooltip("The layer for ground detection")]
 	public LayerMask m_floorMask;
 
 	[Header("Jump Variables")]
 	public float m_jumpHeight = 4f;
 
-
 	[Tooltip("Time the player can still jump after starting to fall")]
 	public float m_coyoteTime = 0.2f;
-	public float m_timeInAir = 0f;
+	protected float m_timeInAir = 0f;
 
 	[HideInInspector] public bool m_gravityDown = true;
 	[HideInInspector] public bool m_playerAlive = true;
@@ -25,6 +22,7 @@ public class Player2D : MonoBehaviour
 	protected Animator m_animator;
 	protected Rigidbody2D m_rigidbody;
 	protected Vector3 m_initialPlayerPosition;
+	protected CapsuleCollider2D m_playerCollider;
 
 
 
@@ -33,6 +31,7 @@ public class Player2D : MonoBehaviour
 	{
 		m_animator = GetComponent<Animator>();
 		m_rigidbody = GetComponent<Rigidbody2D>();
+		m_playerCollider = GetComponent<CapsuleCollider2D>();
 
 		//todo: only set this on actual game start.
 		m_playerAlive = true;
@@ -94,16 +93,6 @@ public class Player2D : MonoBehaviour
 		}
 	}
 
-	public void OnLanding()
-	{
-
-	}
-
-	public void OnJump()
-	{
-
-	}
-
 	public bool IsGrounded()
 	{
 		if (m_rigidbody.velocity.y <= 0)
@@ -114,7 +103,7 @@ public class Player2D : MonoBehaviour
 			if (groundHit)
 			{
 				//if within distance of the ground
-				return (Vector2.Distance(groundHit.point, (Vector2)m_groundDetection.position) < 0.1);
+				return (Vector2.Distance(groundHit.point, new Vector2(0, transform.position.y - Mathf.Sign(m_rigidbody.gravityScale) * (m_playerCollider.size.y / 2))) < 0.24);
 			}
 		}
 

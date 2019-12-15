@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-	public List<GameObject> m_pooledObjects;
+	[HideInInspector] public List<GameObject> m_pooledObjects;
 	public GameObject m_objectToPool;
 	public int m_amountToPool;
 
+	[Tooltip("If enabled, will instantiate more object at runtime as needed.")]
 	public bool m_shouldExpand = true;
 
 	private void Awake()

@@ -7,6 +7,7 @@ public class HighScores : MonoBehaviour
 	public TextMeshProUGUI HighScoreText;
 	public TextMeshProUGUI CurrentScoreText;
 
+
 	private void OnEnable()
 	{
 		int currentScore = Mathf.RoundToInt(GameManager.Instance.GetCurrentDistance());
