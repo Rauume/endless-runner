@@ -12,19 +12,21 @@ public class Player2D : MonoBehaviour
 
 	[Header("Jump Variables")]
 	public float m_jumpHeight = 4f;
-	public float m_minJumpHeight = 1f;
 
 
 	[Tooltip("Time the player can still jump after starting to fall")]
 	public float m_coyoteTime = 0.2f;
 	public float m_timeInAir = 0f;
 
-	public bool m_gravityIsDown = true;
-	public bool m_playerRunning = true;
+	[HideInInspector] public bool m_gravityDown = true;
+	[HideInInspector] public bool m_playerAlive = true;
 
 	//protected variables;
 	protected bool jumpKeyHeld = false;
 	//protected bool isOnGround = true;
+
+	//animator state hashes.
+
 
 
 	// Start is called before the first frame update
@@ -34,7 +36,7 @@ public class Player2D : MonoBehaviour
 		m_rigidbody = GetComponent<Rigidbody2D>();
 
 		//todo: only set this on actual game start.
-		m_playerRunning = true;
+		m_playerAlive = true;
 	}
 
 	// Update is called once per frame
@@ -141,17 +143,17 @@ public class Player2D : MonoBehaviour
 	//change the gravity depending on the previous direction
 	public void Input_SwitchDirections()
 	{
-		if (m_playerRunning)
+		if (m_playerAlive)
 		{
-			if (m_gravityIsDown)
+			if (m_gravityDown)
 			{
-				m_gravityIsDown = false;
+				m_gravityDown = false;
 				transform.eulerAngles += Vector3.right * 180;
 				m_rigidbody.gravityScale *= -1;
 			}
 			else
 			{
-				m_gravityIsDown = true;
+				m_gravityDown = true;
 				transform.eulerAngles += Vector3.right * -180;
 				m_rigidbody.gravityScale *= -1;
 
@@ -160,12 +162,22 @@ public class Player2D : MonoBehaviour
 	}
 
 	//stop the player from moving.
-	public void StopRunning()
+	public void KillPlayer()
 	{
-		if (!m_gravityIsDown)
-			Input_SwitchDirections();
+		if (m_playerAlive)
+		{
+			if (!m_gravityDown)
+				Input_SwitchDirections();
 
-		m_playerRunning = false;
-		m_animator.SetBool("IsDead", true);		
+			m_playerAlive = false;
+			m_animator.SetBool("IsDead", true);
+		}
+	}
+
+	public void BeginRunning()
+	{
+		m_playerAlive = true;
+		m_animator.Play("Running");
+		m_animator.SetBool("IsDead", false);
 	}
 }

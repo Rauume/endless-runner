@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -333,11 +333,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_jumpHeight: 5
-  m_minJumpHeight: 1
   m_coyoteTime: 0.2
   m_timeInAir: 0
-  m_gravityIsDown: 1
-  m_playerRunning: 1
+  m_gravityDown: 1
+  m_playerAlive: 1
 --- !u!1 &234113575
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +594,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 387057421}
+        m_MethodName: ResetGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &301128287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,7 +651,6 @@ GameObject:
   m_Component:
   - component: {fileID: 387057422}
   - component: {fileID: 387057421}
-  - component: {fileID: 387057423}
   - component: {fileID: 387057424}
   - component: {fileID: 387057425}
   m_Layer: 0
@@ -668,9 +677,6 @@ MonoBehaviour:
   m_globalScrollSpeed: 5.4
   m_startPoint: {fileID: 561569283}
   m_endPoint: {fileID: 10698779}
-  objectPools:
-  - {fileID: 1593780130}
-  - {fileID: 2146844165}
 --- !u!4 &387057422
 Transform:
   m_ObjectHideFlags: 0
@@ -685,27 +691,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &387057423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 387057420}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee6eacd9b58fa8c46b1a03ac0126c1c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 8296172667984432673}
-  gameManager: {fileID: 0}
-  scriptedEventCollections:
-  - comment: test
-    events:
-    - {fileID: 11400000, guid: 606fb22ca824a854eb5598ebd58d115f, type: 2}
-    objects: []
-    timeToComplete: 20
-    isRunning: 0
 --- !u!114 &387057424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,17 +726,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406ef4e074931c5488d90689de0f0caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamePrefabs:
-  - comment: Jumpy bit
-    gameElement: {fileID: 6045785260839156097, guid: 26dd2f72993b39249bd5052d26bb67a2,
-      type: 3}
-    weight: 51
-    accumulatedWeight: 0
-  - comment: Jump over Laser
-    gameElement: {fileID: 6045785260839156097, guid: 5c4b0d11783456b44b86cb767bc4b4fe,
-      type: 3}
-    weight: 51
-    accumulatedWeight: 0
+  objects:
+  - {fileID: 6045785260839156097, guid: 26dd2f72993b39249bd5052d26bb67a2, type: 3}
+  - {fileID: 6045785260839156097, guid: 5c4b0d11783456b44b86cb767bc4b4fe, type: 3}
+  objectPools:
+  - {fileID: 1593780130}
+  - {fileID: 2146844165}
+  - {fileID: 1060188224}
 --- !u!4 &399789977 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 215660311655334432, guid: 32aeb6605d5050641a4903785ab99f7f,
@@ -2713,9 +2694,3 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 215660311751777372, guid: 32aeb6605d5050641a4903785ab99f7f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 32aeb6605d5050641a4903785ab99f7f, type: 3}
---- !u!1 &8296172667984432673 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8205489248028967832, guid: 32aeb6605d5050641a4903785ab99f7f,
-    type: 3}
-  m_PrefabInstance: {fileID: 215660311909862841}
-  m_PrefabAsset: {fileID: 0}

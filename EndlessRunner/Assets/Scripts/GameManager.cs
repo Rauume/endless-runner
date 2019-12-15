@@ -13,20 +13,24 @@ public class GameManager : MonoBehaviour
 
 	[Header("Game Variables")]
 	public GameObject m_player;
-	Player2D playerController;
-	protected EventsManager m_eventManager;
+	protected Player2D playerController;
+
+	//protected EventsManager m_eventManager;
 	protected bool m_isGameRunning = false;
 	protected int coinsCollected = 0;
 
 	public float m_globalScrollSpeed = 5.4f;
+	public const float m_beginningScrollSpeed = 5.4f;
 	public const int m_playAreaHeight = 10;
 
 	[Header("Start and end spawning positions")]
 	public Transform m_startPoint;
 	public Transform m_endPoint;
 
-	[Header("Object Pools")]
-	public List<ObjectPool> objectPools = new List<ObjectPool>();
+	//Protected Variables;
+	protected PlaceGameElements gameElementSpawner;
+
+
 
 	private void Awake()
 	{
@@ -44,10 +48,8 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		m_eventManager = GetComponent<EventsManager>();
 		playerController = m_player.GetComponent<Player2D>();
-
-		m_eventManager.AddRandomEventToQueue();
+		gameElementSpawner = GetComponent<PlaceGameElements>();
 	}
 
 	//Coin counter.
@@ -61,23 +63,37 @@ public class GameManager : MonoBehaviour
 		return coinsCollected;
 	}
 
-	
+	//Start the run
 	public void StartGame()
 	{
 		Time.timeScale = 1;
+		m_globalScrollSpeed = m_beginningScrollSpeed;
+
 		m_isGameRunning = true;
-		coinsCollected = 0;
+		playerController.BeginRunning();
+		gameElementSpawner.BeginSpawningElements();
 	}
 
+	//Stop the run
 	public void EndGame()
 	{
 		m_globalScrollSpeed = 0;
-		playerController.StopRunning();
+		playerController.KillPlayer();
 		m_isGameRunning = false;
+
+		gameElementSpawner.StopSpawningElements();
 
 		m_UIManager.ShowDeathScreen();
 
 		Time.timeScale = 0;
+	}
+
+	//reset without starting the run.
+	public void ResetGame()
+	{
+		gameElementSpawner.ReturnGameElementsToPool();
+		coinsCollected = 0;
+
 	}
 
 	public bool isGameRunning()
@@ -86,14 +102,5 @@ public class GameManager : MonoBehaviour
 	}
 
 	
-	public ObjectPool GetPool(string tag)
-	{
-		foreach (ObjectPool pool in objectPools)
-		{
-			if (pool.objectToPool.tag == tag)
-				return pool;
-		}
 
-		return null;
-	}
 }
