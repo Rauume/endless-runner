@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
 	public float m_globalScrollSpeed = 5.4f;
 	public const float m_beginningScrollSpeed = 5.4f;
+	public float m_scrollSpeedIncreaseModifier = 0.2f;
 	protected float m_distanceRan = 0;
 	public const int m_playAreaHeight = 10;
 
@@ -58,6 +59,8 @@ public class GameManager : MonoBehaviour
 		if (isGameRunning())
 		{
 			m_distanceRan += m_globalScrollSpeed * Time.deltaTime;
+			m_globalScrollSpeed += Time.deltaTime * m_scrollSpeedIncreaseModifier;
+			Time.timeScale = m_globalScrollSpeed - m_beginningScrollSpeed + 1;
 		}
 	}
 

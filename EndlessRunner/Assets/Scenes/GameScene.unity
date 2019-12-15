@@ -588,6 +588,7 @@ MonoBehaviour:
   m_player: {fileID: 160748001}
   playerController: {fileID: 0}
   m_globalScrollSpeed: 5.4
+  m_scrollSpeedIncreaseModifier: 0.01
   m_startPoint: {fileID: 561569283}
   m_endPoint: {fileID: 10698779}
 --- !u!4 &387057422
@@ -2824,7 +2825,7 @@ PrefabInstance:
     - target: {fileID: 4695834921386241178, guid: 32aeb6605d5050641a4903785ab99f7f,
         type: 3}
       propertyPath: m_UpdateMode
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 215660311751777372, guid: 32aeb6605d5050641a4903785ab99f7f, type: 3}

@@ -42,6 +42,8 @@ public class Player2D : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		
+
 		if (IsGrounded()) //if is on the ground
 		{
 			m_animator.SetBool("Jumping", false); //set the animation state
